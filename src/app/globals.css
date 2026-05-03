@@ -1,8 +1,10 @@
 @import "tailwindcss";
 
 :root {
-  --background: #060b17;
+  --background: #120602;
   --foreground: #f8fafc;
+  --brand: #f03612;
+  --brand-soft: rgba(240, 54, 18, 0.18);
 }
 
 @theme inline {
@@ -18,11 +20,11 @@ body {
   background:
     radial-gradient(
       circle at top left,
-      rgba(248, 113, 113, 0.18),
+      rgba(240, 54, 18, 0.22),
       transparent 25%
     ),
-    radial-gradient(circle at right, rgba(236, 72, 153, 0.12), transparent 20%),
-    linear-gradient(180deg, #080c17 0%, #07101e 100%);
+    radial-gradient(circle at right, rgba(240, 54, 18, 0.12), transparent 20%),
+    linear-gradient(180deg, #120602 0%, #090406 100%);
   color: var(--foreground);
   font-family: var(--font-sans), system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
