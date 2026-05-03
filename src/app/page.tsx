@@ -32,26 +32,26 @@ export default function Home() {
   }
 
   return (
-    <main className="min-h-screen bg-slate-950 text-slate-100 px-6 py-10 md:px-12">
-      <div className="mx-auto flex max-w-6xl flex-col gap-10">
-        <header className="relative overflow-hidden rounded-[2rem] border border-white/10 bg-slate-900/80 px-8 py-8 shadow-[0_30px_90px_-40px_rgba(15,23,42,0.9)] backdrop-blur-xl">
-          <div className="absolute -right-20 top-10 h-40 w-40 rounded-full bg-red-500/20 blur-3xl" />
-          <div className="absolute -left-16 top-24 h-36 w-36 rounded-full bg-orange-400/20 blur-3xl" />
-          <div className="relative flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+    <main className="min-h-screen overflow-x-hidden bg-slate-950 text-slate-100 px-4 py-8 md:px-12">
+      <div className="mx-auto flex max-w-6xl flex-col gap-8">
+        <header className="relative overflow-hidden rounded-[2rem] border border-white/10 bg-slate-900/80 px-6 py-6 shadow-[0_30px_90px_-40px_rgba(15,23,42,0.9)] backdrop-blur-xl md:px-8 md:py-8">
+          <div className="hidden md:block absolute -right-20 top-10 h-40 w-40 rounded-full bg-red-500/20 blur-3xl" />
+          <div className="hidden md:block absolute -left-16 top-24 h-36 w-36 rounded-full bg-orange-400/20 blur-3xl" />
+          <div className="relative flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
             <div>
-              <p className="text-sm font-semibold uppercase tracking-[0.35em] text-red-400/90">
+              <p className="text-xs font-semibold uppercase tracking-[0.35em] text-red-400/90 md:text-sm">
                 Supply Sistemas
               </p>
-              <h1 className="mt-3 text-4xl font-bold text-white md:text-5xl">
+              <h1 className="mt-3 text-3xl font-bold text-white md:text-5xl">
                 Plataforma de compartilhamento
               </h1>
-              <p className="mt-4 max-w-2xl text-slate-300 sm:text-lg">
+              <p className="mt-4 max-w-xl text-slate-300 text-sm sm:text-base md:text-lg">
                 Envie arquivos com link seguro e baixe em qualquer lugar. Design
                 moderno com a identidade SupplySistemas.
               </p>
             </div>
-            <div className="rounded-[1.75rem] border border-white/10 bg-slate-950/80 p-6 shadow-xl">
-              <p className="text-sm uppercase tracking-[0.25em] text-slate-400">
+            <div className="rounded-[1.75rem] border border-white/10 bg-slate-950/80 p-5 shadow-xl md:p-6">
+              <p className="text-xs uppercase tracking-[0.25em] text-slate-400 md:text-sm">
                 Status do sistema
               </p>
               <span className="mt-3 inline-flex rounded-full bg-emerald-500/15 px-3 py-1 text-sm font-semibold text-emerald-300">
@@ -61,9 +61,9 @@ export default function Home() {
           </div>
         </header>
 
-        <section className="grid gap-8 lg:grid-cols-[1.2fr_0.8fr]">
-          <div className="rounded-[2rem] bg-slate-900/95 p-8 shadow-[0_25px_60px_-30px_rgba(15,23,42,0.9)] ring-1 ring-white/10">
-            <div className="mb-8 flex items-center justify-between rounded-3xl bg-slate-800/90 px-5 py-4 text-slate-200 shadow-inner shadow-black/20">
+        <section className="grid gap-6 lg:grid-cols-[1.2fr_0.8fr]">
+          <div className="rounded-[2rem] bg-slate-900/95 p-6 shadow-[0_25px_60px_-30px_rgba(15,23,42,0.9)] ring-1 ring-white/10 md:p-8">
+            <div className="mb-6 flex flex-col gap-4 rounded-3xl bg-slate-800/90 px-5 py-4 text-slate-200 shadow-inner shadow-black/20 sm:flex-row sm:items-center sm:justify-between">
               <div>
                 <p className="text-xs uppercase tracking-[0.3em] text-slate-400">
                   Upload rápido
@@ -117,10 +117,10 @@ export default function Home() {
             )}
           </div>
 
-          <aside className="rounded-[2rem] bg-gradient-to-br from-red-500 via-orange-500 to-pink-500 p-8 text-white shadow-[0_25px_60px_-30px_rgba(248,113,113,0.7)]">
-            <div className="space-y-5">
-              <div className="rounded-3xl bg-white/10 p-5 shadow-inner shadow-black/20">
-                <p className="text-sm uppercase tracking-[0.28em] text-red-100/80">
+          <aside className="rounded-[2rem] bg-gradient-to-br from-red-500 via-orange-500 to-pink-500 p-6 text-white shadow-[0_25px_60px_-30px_rgba(248,113,113,0.7)] md:p-8">
+            <div className="space-y-4 sm:space-y-5">
+              <div className="rounded-3xl bg-white/10 p-4 shadow-inner shadow-black/20 sm:p-5">
+                <p className="text-xs uppercase tracking-[0.28em] text-red-100/80 sm:text-sm">
                   Sobre o sistema
                 </p>
                 <p className="mt-3 text-lg font-semibold">
