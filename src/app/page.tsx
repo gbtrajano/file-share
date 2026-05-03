@@ -73,7 +73,7 @@ export default function Home() {
                 </p>
               </div>
               <div className="rounded-3xl bg-red-500/10 px-4 py-2 text-sm text-red-300">
-                Até 50MB
+                Até 1GB
               </div>
             </div>
 

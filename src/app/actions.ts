@@ -13,6 +13,20 @@ const STORAGE_ROOT =
 const UPLOAD_DIR = path.join(STORAGE_ROOT, "uploads");
 const METADATA_FILE = path.join(STORAGE_ROOT, "files.json");
 
+const DEFAULT_UPLOAD_LIMIT = 1024 * 1024 * 1024; // 1GB
+const UPLOAD_MAX_SIZE = (() => {
+  const envValue = process.env.UPLOAD_MAX_SIZE;
+  const parsed = envValue ? Number(envValue) : NaN;
+  return Number.isFinite(parsed) && parsed > 0 ? parsed : DEFAULT_UPLOAD_LIMIT;
+})();
+
+function formatSize(bytes: number) {
+  const gb = 1024 * 1024 * 1024;
+  const mb = 1024 * 1024;
+  if (bytes >= gb) return `${(bytes / gb).toFixed(1).replace(/\.0$/, "")}GB`;
+  return `${Math.round(bytes / mb)}MB`;
+}
+
 // Garante que as pastas existam
 async function ensureDir() {
   await fs.mkdir(UPLOAD_DIR, { recursive: true });
@@ -23,7 +37,8 @@ export async function uploadFile(formData: FormData) {
 
   const file = formData.get("file") as File | null;
   if (!file) return { error: "Nenhum arquivo selecionado." };
-  if (file.size > 50 * 1024 * 1024) return { error: "Arquivo maior que 50MB." };
+  if (file.size > UPLOAD_MAX_SIZE)
+    return { error: `Arquivo maior que ${formatSize(UPLOAD_MAX_SIZE)}.` };
 
   // Gera ID único nativo (sem dependências externas)
   const id = crypto.randomUUID();
