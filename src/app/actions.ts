@@ -2,10 +2,16 @@
 
 import { revalidatePath } from "next/cache";
 import fs from "fs/promises";
+import os from "os";
 import path from "path";
 
-const UPLOAD_DIR = path.join(process.cwd(), "data", "uploads");
-const METADATA_FILE = path.join(process.cwd(), "data", "files.json");
+const STORAGE_ROOT =
+  process.env.FILE_SHARE_DATA_DIR ||
+  (process.env.VERCEL
+    ? path.join(os.tmpdir(), "file-share")
+    : path.join(process.cwd(), "data"));
+const UPLOAD_DIR = path.join(STORAGE_ROOT, "uploads");
+const METADATA_FILE = path.join(STORAGE_ROOT, "files.json");
 
 // Garante que as pastas existam
 async function ensureDir() {
@@ -25,30 +31,36 @@ export async function uploadFile(formData: FormData) {
   const fileName = `${id}${ext}`;
   const filePath = path.join(UPLOAD_DIR, fileName);
 
-  // Salva o arquivo
-  const buffer = Buffer.from(await file.arrayBuffer());
-  await fs.writeFile(filePath, buffer);
-
-  // Atualiza metadados (JSON simples para MVP)
-  let metadata: Record<
-    string,
-    { name: string; size: number; createdAt: string }
-  > = {};
   try {
-    const data = await fs.readFile(METADATA_FILE, "utf-8");
-    metadata = JSON.parse(data);
-  } catch {
-    // Arquivo não existe ainda
+    // Salva o arquivo
+    const buffer = Buffer.from(await file.arrayBuffer());
+    await fs.writeFile(filePath, buffer);
+
+    // Atualiza metadados (JSON simples para MVP)
+    let metadata: Record<
+      string,
+      { name: string; size: number; createdAt: string }
+    > = {};
+
+    try {
+      const data = await fs.readFile(METADATA_FILE, "utf-8");
+      metadata = JSON.parse(data);
+    } catch {
+      // Arquivo não existe ainda
+    }
+
+    metadata[id] = {
+      name: file.name,
+      size: file.size,
+      createdAt: new Date().toISOString(),
+    };
+
+    await fs.writeFile(METADATA_FILE, JSON.stringify(metadata, null, 2));
+    revalidatePath("/");
+
+    return { success: true, id };
+  } catch (error) {
+    console.error(error);
+    return { error: "Falha ao salvar o arquivo. Tente novamente mais tarde." };
   }
-
-  metadata[id] = {
-    name: file.name,
-    size: file.size,
-    createdAt: new Date().toISOString(),
-  };
-
-  await fs.writeFile(METADATA_FILE, JSON.stringify(metadata, null, 2));
-  revalidatePath("/");
-
-  return { success: true, id };
 }

@@ -1,9 +1,15 @@
 import { NextRequest, NextResponse } from "next/server";
 import fs from "fs/promises";
+import os from "os";
 import path from "path";
 
-const UPLOAD_DIR = path.join(process.cwd(), "data", "uploads");
-const METADATA_FILE = path.join(process.cwd(), "data", "files.json");
+const STORAGE_ROOT =
+  process.env.FILE_SHARE_DATA_DIR ||
+  (process.env.VERCEL
+    ? path.join(os.tmpdir(), "file-share")
+    : path.join(process.cwd(), "data"));
+const UPLOAD_DIR = path.join(STORAGE_ROOT, "uploads");
+const METADATA_FILE = path.join(STORAGE_ROOT, "files.json");
 
 export async function GET(
   _request: NextRequest,

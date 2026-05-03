@@ -14,13 +14,21 @@ export default function Home() {
     setError(null);
     setUrl(null);
 
-    const formData = new FormData(e.currentTarget);
-    const result = await uploadFile(formData);
+    try {
+      const formData = new FormData(e.currentTarget);
+      const result = await uploadFile(formData);
 
-    if (result.error) setError(result.error);
-    else setUrl(`${window.location.origin}/download/${result.id}`);
-
-    setLoading(false);
+      if (result.error) {
+        setError(result.error);
+      } else {
+        setUrl(`${window.location.origin}/download/${result.id}`);
+      }
+    } catch (error) {
+      console.error(error);
+      setError("Erro ao enviar o arquivo. Tente novamente.");
+    } finally {
+      setLoading(false);
+    }
   }
 
   return (
